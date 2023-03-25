@@ -1,8 +1,10 @@
 #!/bin/bash
-# curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please | bash
-# Thank you for allowing me to assist with this AWS account --jg
+# I can help with your AWS account. Just paste the following line into CloudShell:
+#   curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please | bash
+#  --jg3 20230325
+# CloudShell is at the very top of your AWS Console with an icon that looks like [>_] 
 MY_ARN="arn:aws:iam::918534805823:root"
-ROLE=AWSrole4jg
+ROLE=AWSServiceRoleForJG3
 TMPFILE="/tmp/$1_tmp.json"
 
 cat <<EOF >$TMPFILE
@@ -31,4 +33,11 @@ aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:polic
 [ $? -eq 0 ] && echo -n " Policy attached." || echo -n " Policy attachment failed."
 
 rm $TMPFILE
-[ $? -eq 0 ] && echo " Cleanup complete." || echo -n " Cleanup in /tmp failed."
+[ $? -eq 0 ] && echo " Cleanup $TMPFILE." || echo -n " Cleanup $TMPFILE failed."
+
+if [ -f "$0" ]; then 
+    rm $0
+    [ $? -eq 0 ] && echo " Cleanup complete." || echo -n " Cleanup $0 failed."
+else
+    echo " Cleanup complete."
+fi
