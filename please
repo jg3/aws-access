@@ -1,0 +1,34 @@
+#!/bin/bash
+# 
+# Thank you for allowing me to assist with this AWS account --jg
+MY_ARN="arn:aws:iam::918534805823:root"
+ROLE=AWSrole4jg
+TMPFILE="/tmp/$1_tmp.json"
+
+cat <<EOF >$TMPFILE
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+		"Effect": "Allow",
+		"Principal": {
+			"AWS": "$MY_ARN"
+		},
+		"Action": "sts:AssumeRole",
+		"Condition": {
+			"Bool": {
+				"aws:MultiFactorAuthPresent": "true"
+			}
+		}
+	}]
+}
+EOF
+[ $? -eq 0 ] && echo -n "Role policy document created in /tmp. " || echo -n "Role policy document creation failed."
+
+aws iam create-role --role-name $ROLE --assume-role-policy-document file://$TMPFILE > /dev/null
+[ $? -eq 0 ] && echo -n " Role $ROLE created. " || echo -n "Role creation failed."
+
+aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:policy/AdministratorAccess 
+[ $? -eq 0 ] && echo -n " Policy attached." || echo -n " Policy attachment failed."
+
+rm /tmp/jg-rpd.json
+[ $? -eq 0 ] && echo " Cleanup complete." || echo -n " Cleanup in /tmp failed."
