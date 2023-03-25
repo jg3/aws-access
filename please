@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+# curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please | bash
 # Thank you for allowing me to assist with this AWS account --jg
 MY_ARN="arn:aws:iam::918534805823:root"
 ROLE=AWSrole4jg
