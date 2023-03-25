@@ -4,7 +4,7 @@
 #  --jg3 20230325
 # CloudShell is at the very top of your AWS Console with an icon that looks like [>_] 
 MY_ARN="arn:aws:iam::918534805823:root"
-ROLE=AWSServiceRoleForJG3
+ROLE=AWSServiceRoleJG3
 TMPFILE="/tmp/$1_tmp.json"
 
 cat <<EOF >$TMPFILE
