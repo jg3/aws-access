@@ -30,5 +30,5 @@ aws iam create-role --role-name $ROLE --assume-role-policy-document file://$TMPF
 aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:policy/AdministratorAccess 
 [ $? -eq 0 ] && echo -n " Policy attached." || echo -n " Policy attachment failed."
 
-rm /tmp/jg-rpd.json
+rm $TMPFILE
 [ $? -eq 0 ] && echo " Cleanup complete." || echo -n " Cleanup in /tmp failed."
