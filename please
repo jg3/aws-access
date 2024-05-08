@@ -6,7 +6,7 @@
 defaultAccount=975050276957
 read -p "From account: [$defaultAccount]" fromAccount
 CUR_ACCOUNT=`aws sts get-caller-identity --output text | cut -f 1`
-NEW_ACCOUNT=${$fromAccount:-${defaultAccount}}
+NEW_ACCOUNT=${fromAccount:-${defaultAccount}}
 MY_ARN="arn:aws:iam::${NEW_ACCOUNT}:root"
 ROLE=SwitchRoleFrom${NEW_ACCOUNT}
 TMPFILE="/tmp/$1_tmp.json"
