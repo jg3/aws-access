@@ -12,3 +12,5 @@ This script enables full access to your account, so be sure the FROM account is 
 Note(s):  
 . there's a way to include a check for MFA in the Role JSON, but it didn't work in my SAML envoronment.  
 . it would likewise be possible to create or attach a policy with something less than AdministratorAccess.
+
+<img width="663" alt="AwsSwitchRole" src="https://github.com/jg3/aws-access/assets/2963153/681eacb7-0e51-4824-ac1a-fb17d23c4b2f">
