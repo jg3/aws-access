@@ -1,12 +1,12 @@
 #!/bin/bash
 # For the simplest usage, just paste the following line into CloudShell:
-#   curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please | bash
+#  bash<(curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please)
 # CloudShell is at the very top of your AWS Console with an icon that looks like [>_] 
 
 thisAccount=`aws sts get-caller-identity --output text | cut -f 1`
 
 defaultAccount=975050276957
-read -p "From account: [$defaultAccount]  " fromAccount </dev/console
+read -p "From account: [$defaultAccount]  " fromAccount
 thatAccount=${fromAccount:-${defaultAccount}}
 MY_ARN="arn:aws:iam::${thatAccount}:root"
 ROLE=SwitchRoleFrom${thatAccount}
@@ -36,7 +36,7 @@ aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:polic
 rm $TMPFILE
 [ $? -eq 0 ] && echo -n " Cleanup $TMPFILE." || echo -n " Cleanup $TMPFILE failed."
 
-read -n 1 -s -r -p " Press any key to continue," </dev/console
+read -n 1 -s -r -p " Press any key to continue,"
 
 if [ -f "$0" ]; then
     #rm $0
