@@ -34,16 +34,16 @@ aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:polic
 [ $? -eq 0 ] && echo -n " Policy attached." || echo -n " Policy attachment failed."
 
 rm $TMPFILE
-[ $? -eq 0 ] && echo -n " Cleanup $TMPFILE." || echo -n " Cleanup $TMPFILE failed."
-
-read -n 1 -s -r -p " Press any key to continue,"
+[ $? -eq 0 ] && echo -n " Cleaning $TMPFILE " || echo -n " Cleanup $TMPFILE failed."
 
 if [ -f "$0" ]; then
     #rm $0
-    echo "boom!"
     [ $? -eq 0 ] && echo " Cleanup complete." || echo -n " Cleanup $0 failed."
 else
     echo " Cleanup complete."
 fi
+
+#read -n 1 -s -r -p " Press any key to continue,"
+
 echo "Link to switch roles in console: "
 echo "  https://signin.aws.amazon.com/switchrole?roleName=${ROLE}&account=${thisAccount}"
