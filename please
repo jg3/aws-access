@@ -1,4 +1,5 @@
 #!/bin/bash
+exec 0</dev/tty
 # For the simplest usage, just paste the following line into CloudShell:
 #   curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please | bash
 # CloudShell is at the very top of your AWS Console with an icon that looks like [>_] 
