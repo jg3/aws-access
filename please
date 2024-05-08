@@ -3,8 +3,9 @@
 #   curl -s  https://raw.githubusercontent.com/jg3/aws-access/main/please | bash
 #  --jg3 20230325
 # CloudShell is at the very top of your AWS Console with an icon that looks like [>_] 
-MY_ARN="arn:aws:iam::918534805823:root"
-ROLE=AWSServicingRoleForJG3
+NEW_ACCOUNT=577403846351
+MY_ARN="arn:aws:iam::${NEW_ACCOUNT}:root"
+ROLE=SwitchRoleFrom${NEW_ACCOUNT}
 TMPFILE="/tmp/$1_tmp.json"
 
 cat <<EOF >$TMPFILE
@@ -24,6 +25,10 @@ cat <<EOF >$TMPFILE
 	}]
 }
 EOF
+#
+# Notes
+#   In Switch Role dialog put this (old) account id, Role name (only!) "SwtichRoleFrom577403846351"
+#
 [ $? -eq 0 ] && echo -n "Role policy document created in /tmp. " || echo -n "Role policy document creation failed."
 
 aws iam create-role --role-name $ROLE --assume-role-policy-document file://$TMPFILE > /dev/null
@@ -33,10 +38,13 @@ aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:polic
 [ $? -eq 0 ] && echo -n " Policy attached." || echo -n " Policy attachment failed."
 
 rm $TMPFILE
-[ $? -eq 0 ] && echo " Cleanup $TMPFILE." || echo -n " Cleanup $TMPFILE failed."
+[ $? -eq 0 ] && echo -n " Cleanup $TMPFILE." || echo -n " Cleanup $TMPFILE failed."
 
-if [ -f "$0" ]; then 
-    rm $0
+read -n 1 -s -r -p "Press any key to continue, this program will self-destruct."
+
+if [ -f "$0" ]; then
+    #rm $0
+    echo "boom!"
     [ $? -eq 0 ] && echo " Cleanup complete." || echo -n " Cleanup $0 failed."
 else
     echo " Cleanup complete."
